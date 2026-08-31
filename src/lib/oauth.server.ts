@@ -20,15 +20,15 @@ export function randomToken(bytes = 32): string {
   return Array.from(buf, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-export async function pkceChallenge(verifier: string): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
-  return base64UrlEncode(new Uint8Array(digest));
-}
-
 function base64UrlEncode(bytes: Uint8Array): string {
   let binary = "";
   for (const b of bytes) binary += String.fromCharCode(b);
   return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+export async function pkceChallenge(verifier: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
+  return base64UrlEncode(new Uint8Array(digest));
 }
 
 export function readCookie(request: Request, name: string): string | null {
@@ -60,14 +60,19 @@ export function clearCookie(name: string, secure: boolean) {
 /** Origin the browser actually used, so the redirect URI always matches. */
 export function requestOrigin(request: Request): string {
   const url = new URL(request.url);
-  const forwardedHost = url.hostname === "localhost" ? request.headers.get("x-forwarded-host") : null;
+  const forwardedHost =
+    url.hostname === "localhost" ? request.headers.get("x-forwarded-host") : null;
   return forwardedHost ? `https://${forwardedHost}` : url.origin;
 }
 
 export function redirectTo(location: string, cookies: string[] = []): Response {
   const headers = new Headers({ Location: location });
   for (const c of cookies) headers.append("Set-Cookie", c);
-  return new Response(null { status: 302, headers } as never);
+  return new Response(null, { status: 302, headers });
+}
+
+export function authError(origin: string, code: string, cookies: string[] = []): Response {
+  return redirectTo(`${origin}/auth?error=${encodeURIComponent(code)}`, cookies);
 }
 
 export function providerConfig(provider: ProviderId) {
