@@ -10,33 +10,138 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PanelRouteImport } from './routes/_panel'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PanelDashboardRouteImport } from './routes/_panel.dashboard'
+import { Route as AuthCompleteRouteImport } from './routes/auth.complete'
+import { Route as ApiPublicAuthDiscordCallbackRouteImport } from './routes/api/public/auth/discord.callback'
+import { Route as ApiPublicAuthDiscordStartRouteImport } from './routes/api/public/auth/discord.start'
+import { Route as ApiPublicAuthRobloxCallbackRouteImport } from './routes/api/public/auth/roblox.callback'
+import { Route as ApiPublicAuthRobloxStartRouteImport } from './routes/api/public/auth/roblox.start'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PanelRoute = PanelRouteImport.update({
+  id: '/_panel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanelDashboardRoute = PanelDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => PanelRoute,
+} as any)
+const AuthCompleteRoute = AuthCompleteRouteImport.update({
+  id: '/complete',
+  path: '/complete',
+  getParentRoute: () => AuthRoute,
+} as any)
+const ApiPublicAuthDiscordCallbackRoute =
+  ApiPublicAuthDiscordCallbackRouteImport.update({
+    id: '/api/public/auth/discord/callback',
+    path: '/api/public/auth/discord/callback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicAuthDiscordStartRoute =
+  ApiPublicAuthDiscordStartRouteImport.update({
+    id: '/api/public/auth/discord/start',
+    path: '/api/public/auth/discord/start',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicAuthRobloxCallbackRoute =
+  ApiPublicAuthRobloxCallbackRouteImport.update({
+    id: '/api/public/auth/roblox/callback',
+    path: '/api/public/auth/roblox/callback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicAuthRobloxStartRoute =
+  ApiPublicAuthRobloxStartRouteImport.update({
+    id: '/api/public/auth/roblox/start',
+    path: '/api/public/auth/roblox/start',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRouteWithChildren
+  '/dashboard': typeof PanelDashboardRoute
+  '/auth/complete': typeof AuthCompleteRoute
+  '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
+  '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
+  '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
+  '/api/public/auth/roblox/start': typeof ApiPublicAuthRobloxStartRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRouteWithChildren
+  '/dashboard': typeof PanelDashboardRoute
+  '/auth/complete': typeof AuthCompleteRoute
+  '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
+  '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
+  '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
+  '/api/public/auth/roblox/start': typeof ApiPublicAuthRobloxStartRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_panel': typeof PanelRouteWithChildren
+  '/auth': typeof AuthRouteWithChildren
+  '/_panel/dashboard': typeof PanelDashboardRoute
+  '/auth/complete': typeof AuthCompleteRoute
+  '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
+  '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
+  '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
+  '/api/public/auth/roblox/start': typeof ApiPublicAuthRobloxStartRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/auth/complete'
+    | '/api/public/auth/discord/callback'
+    | '/api/public/auth/discord/start'
+    | '/api/public/auth/roblox/callback'
+    | '/api/public/auth/roblox/start'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/auth/complete'
+    | '/api/public/auth/discord/callback'
+    | '/api/public/auth/discord/start'
+    | '/api/public/auth/roblox/callback'
+    | '/api/public/auth/roblox/start'
+  id:
+    | '__root__'
+    | '/'
+    | '/_panel'
+    | '/auth'
+    | '/_panel/dashboard'
+    | '/auth/complete'
+    | '/api/public/auth/discord/callback'
+    | '/api/public/auth/discord/start'
+    | '/api/public/auth/roblox/callback'
+    | '/api/public/auth/roblox/start'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PanelRoute: typeof PanelRouteWithChildren
+  AuthRoute: typeof AuthRouteWithChildren
+  ApiPublicAuthDiscordCallbackRoute: typeof ApiPublicAuthDiscordCallbackRoute
+  ApiPublicAuthDiscordStartRoute: typeof ApiPublicAuthDiscordStartRoute
+  ApiPublicAuthRobloxCallbackRoute: typeof ApiPublicAuthRobloxCallbackRoute
+  ApiPublicAuthRobloxStartRoute: typeof ApiPublicAuthRobloxStartRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +153,93 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_panel': {
+      id: '/_panel'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_panel/dashboard': {
+      id: '/_panel/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof PanelDashboardRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/auth/complete': {
+      id: '/auth/complete'
+      path: '/complete'
+      fullPath: '/auth/complete'
+      preLoaderRoute: typeof AuthCompleteRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/api/public/auth/discord/callback': {
+      id: '/api/public/auth/discord/callback'
+      path: '/api/public/auth/discord/callback'
+      fullPath: '/api/public/auth/discord/callback'
+      preLoaderRoute: typeof ApiPublicAuthDiscordCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/auth/discord/start': {
+      id: '/api/public/auth/discord/start'
+      path: '/api/public/auth/discord/start'
+      fullPath: '/api/public/auth/discord/start'
+      preLoaderRoute: typeof ApiPublicAuthDiscordStartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/auth/roblox/callback': {
+      id: '/api/public/auth/roblox/callback'
+      path: '/api/public/auth/roblox/callback'
+      fullPath: '/api/public/auth/roblox/callback'
+      preLoaderRoute: typeof ApiPublicAuthRobloxCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/auth/roblox/start': {
+      id: '/api/public/auth/roblox/start'
+      path: '/api/public/auth/roblox/start'
+      fullPath: '/api/public/auth/roblox/start'
+      preLoaderRoute: typeof ApiPublicAuthRobloxStartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface PanelRouteChildren {
+  PanelDashboardRoute: typeof PanelDashboardRoute
+}
+
+const PanelRouteChildren: PanelRouteChildren = {
+  PanelDashboardRoute: PanelDashboardRoute,
+}
+
+const PanelRouteWithChildren = PanelRoute._addFileChildren(PanelRouteChildren)
+
+interface AuthRouteChildren {
+  AuthCompleteRoute: typeof AuthCompleteRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthCompleteRoute: AuthCompleteRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PanelRoute: PanelRouteWithChildren,
+  AuthRoute: AuthRouteWithChildren,
+  ApiPublicAuthDiscordCallbackRoute: ApiPublicAuthDiscordCallbackRoute,
+  ApiPublicAuthDiscordStartRoute: ApiPublicAuthDiscordStartRoute,
+  ApiPublicAuthRobloxCallbackRoute: ApiPublicAuthRobloxCallbackRoute,
+  ApiPublicAuthRobloxStartRoute: ApiPublicAuthRobloxStartRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
