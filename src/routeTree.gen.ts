@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthCompleteRouteImport } from './routes/auth.complete'
 import { Route as ApiPublicAuthDiscordCallbackRouteImport } from './routes/api/public/auth/discord.callback'
 import { Route as ApiPublicAuthDiscordStartRouteImport } from './routes/api/public/auth/discord.start'
 import { Route as ApiPublicAuthRobloxCallbackRouteImport } from './routes/api/public/auth/roblox.callback'
@@ -19,6 +21,16 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCompleteRoute = AuthCompleteRouteImport.update({
+  id: '/complete',
+  path: '/complete',
+  getParentRoute: () => AuthRoute,
 } as any)
 const ApiPublicAuthDiscordCallbackRoute =
   ApiPublicAuthDiscordCallbackRouteImport.update({
@@ -47,6 +59,8 @@ const ApiPublicAuthRobloxStartRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRouteWithChildren
+  '/auth/complete': typeof AuthCompleteRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
   '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRouteWithChildren
+  '/auth/complete': typeof AuthCompleteRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
   '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
@@ -62,6 +78,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRouteWithChildren
+  '/auth/complete': typeof AuthCompleteRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
   '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
@@ -71,6 +89,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
+    | '/auth/complete'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
     | '/api/public/auth/roblox/callback'
@@ -78,6 +98,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
+    | '/auth/complete'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
     | '/api/public/auth/roblox/callback'
@@ -85,6 +107,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/auth'
+    | '/auth/complete'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
     | '/api/public/auth/roblox/callback'
@@ -93,6 +117,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRouteWithChildren
   ApiPublicAuthDiscordCallbackRoute: typeof ApiPublicAuthDiscordCallbackRoute
   ApiPublicAuthDiscordStartRoute: typeof ApiPublicAuthDiscordStartRoute
   ApiPublicAuthRobloxCallbackRoute: typeof ApiPublicAuthRobloxCallbackRoute
@@ -107,6 +132,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/complete': {
+      id: '/auth/complete'
+      path: '/complete'
+      fullPath: '/auth/complete'
+      preLoaderRoute: typeof AuthCompleteRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/api/public/auth/discord/callback': {
       id: '/api/public/auth/discord/callback'
@@ -139,8 +178,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthRouteChildren {
+  AuthCompleteRoute: typeof AuthCompleteRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthCompleteRoute: AuthCompleteRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRouteWithChildren,
   ApiPublicAuthDiscordCallbackRoute: ApiPublicAuthDiscordCallbackRoute,
   ApiPublicAuthDiscordStartRoute: ApiPublicAuthDiscordStartRoute,
   ApiPublicAuthRobloxCallbackRoute: ApiPublicAuthRobloxCallbackRoute,
