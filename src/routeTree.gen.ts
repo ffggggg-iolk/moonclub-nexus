@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as PanelRouteImport } from './routes/_panel'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as PanelDashboardRouteImport } from './routes/_panel.dashboard'
+import { Route as PanelPerfilRouteImport } from './routes/_panel.perfil'
 import { Route as AuthCompleteRouteImport } from './routes/auth.complete'
 import { Route as ApiPublicAuthDiscordCallbackRouteImport } from './routes/api/public/auth/discord.callback'
 import { Route as ApiPublicAuthDiscordStartRouteImport } from './routes/api/public/auth/discord.start'
@@ -36,6 +37,11 @@ const AuthRoute = AuthRouteImport.update({
 const PanelDashboardRoute = PanelDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelPerfilRoute = PanelPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
   getParentRoute: () => PanelRoute,
 } as any)
 const AuthCompleteRoute = AuthCompleteRouteImport.update({
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
   '/dashboard': typeof PanelDashboardRoute
+  '/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
   '/dashboard': typeof PanelDashboardRoute
+  '/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/_panel': typeof PanelRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/_panel/dashboard': typeof PanelDashboardRoute
+  '/_panel/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/perfil'
     | '/auth/complete'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/perfil'
     | '/auth/complete'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/_panel'
     | '/auth'
     | '/_panel/dashboard'
+    | '/_panel/perfil'
     | '/auth/complete'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
@@ -174,6 +186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelDashboardRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/_panel/perfil': {
+      id: '/_panel/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PanelPerfilRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/auth/complete': {
       id: '/auth/complete'
       path: '/complete'
@@ -214,10 +233,12 @@ declare module '@tanstack/react-router' {
 
 interface PanelRouteChildren {
   PanelDashboardRoute: typeof PanelDashboardRoute
+  PanelPerfilRoute: typeof PanelPerfilRoute
 }
 
 const PanelRouteChildren: PanelRouteChildren = {
   PanelDashboardRoute: PanelDashboardRoute,
+  PanelPerfilRoute: PanelPerfilRoute,
 }
 
 const PanelRouteWithChildren = PanelRoute._addFileChildren(PanelRouteChildren)
