@@ -12,8 +12,20 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PanelRouteImport } from './routes/_panel'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PanelConfiguracionRouteImport } from './routes/_panel.configuracion'
 import { Route as PanelDashboardRouteImport } from './routes/_panel.dashboard'
+import { Route as PanelNotificacionesRouteImport } from './routes/_panel.notificaciones'
+import { Route as PanelPerfilRouteImport } from './routes/_panel.perfil'
 import { Route as AuthCompleteRouteImport } from './routes/auth.complete'
+import { Route as PanelAdminAbiertosRouteImport } from './routes/_panel.admin.abiertos'
+import { Route as PanelAdminCerradosRouteImport } from './routes/_panel.admin.cerrados'
+import { Route as PanelOwnerIndexRouteImport } from './routes/_panel.owner.index'
+import { Route as PanelOwnerAdministradoresRouteImport } from './routes/_panel.owner.administradores'
+import { Route as PanelOwnerTicketsRouteImport } from './routes/_panel.owner.tickets'
+import { Route as PanelOwnerUsuariosRouteImport } from './routes/_panel.owner.usuarios'
+import { Route as PanelTicketsIndexRouteImport } from './routes/_panel.tickets.index'
+import { Route as PanelTicketsIdRouteImport } from './routes/_panel.tickets.$id'
+import { Route as PanelTicketsNuevoRouteImport } from './routes/_panel.tickets.nuevo'
 import { Route as ApiPublicAuthDiscordCallbackRouteImport } from './routes/api/public/auth/discord.callback'
 import { Route as ApiPublicAuthDiscordStartRouteImport } from './routes/api/public/auth/discord.start'
 import { Route as ApiPublicAuthRobloxCallbackRouteImport } from './routes/api/public/auth/roblox.callback'
@@ -33,15 +45,76 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PanelConfiguracionRoute = PanelConfiguracionRouteImport.update({
+  id: '/configuracion',
+  path: '/configuracion',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelDashboardRoute = PanelDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelNotificacionesRoute = PanelNotificacionesRouteImport.update({
+  id: '/notificaciones',
+  path: '/notificaciones',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelPerfilRoute = PanelPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
   getParentRoute: () => PanelRoute,
 } as any)
 const AuthCompleteRoute = AuthCompleteRouteImport.update({
   id: '/complete',
   path: '/complete',
   getParentRoute: () => AuthRoute,
+} as any)
+const PanelAdminAbiertosRoute = PanelAdminAbiertosRouteImport.update({
+  id: '/admin/abiertos',
+  path: '/admin/abiertos',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelAdminCerradosRoute = PanelAdminCerradosRouteImport.update({
+  id: '/admin/cerrados',
+  path: '/admin/cerrados',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelOwnerIndexRoute = PanelOwnerIndexRouteImport.update({
+  id: '/owner/',
+  path: '/owner/',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelOwnerAdministradoresRoute =
+  PanelOwnerAdministradoresRouteImport.update({
+    id: '/owner/administradores',
+    path: '/owner/administradores',
+    getParentRoute: () => PanelRoute,
+  } as any)
+const PanelOwnerTicketsRoute = PanelOwnerTicketsRouteImport.update({
+  id: '/owner/tickets',
+  path: '/owner/tickets',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelOwnerUsuariosRoute = PanelOwnerUsuariosRouteImport.update({
+  id: '/owner/usuarios',
+  path: '/owner/usuarios',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelTicketsIndexRoute = PanelTicketsIndexRouteImport.update({
+  id: '/tickets/',
+  path: '/tickets/',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelTicketsIdRoute = PanelTicketsIdRouteImport.update({
+  id: '/tickets/$id',
+  path: '/tickets/$id',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelTicketsNuevoRoute = PanelTicketsNuevoRouteImport.update({
+  id: '/tickets/nuevo',
+  path: '/tickets/nuevo',
+  getParentRoute: () => PanelRoute,
 } as any)
 const ApiPublicAuthDiscordCallbackRoute =
   ApiPublicAuthDiscordCallbackRouteImport.update({
@@ -71,8 +144,20 @@ const ApiPublicAuthRobloxStartRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
+  '/configuracion': typeof PanelConfiguracionRoute
   '/dashboard': typeof PanelDashboardRoute
+  '/notificaciones': typeof PanelNotificacionesRoute
+  '/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
+  '/admin/abiertos': typeof PanelAdminAbiertosRoute
+  '/admin/cerrados': typeof PanelAdminCerradosRoute
+  '/owner/administradores': typeof PanelOwnerAdministradoresRoute
+  '/owner/tickets': typeof PanelOwnerTicketsRoute
+  '/owner/usuarios': typeof PanelOwnerUsuariosRoute
+  '/tickets/$id': typeof PanelTicketsIdRoute
+  '/tickets/nuevo': typeof PanelTicketsNuevoRoute
+  '/owner/': typeof PanelOwnerIndexRoute
+  '/tickets/': typeof PanelTicketsIndexRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
   '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
@@ -81,8 +166,20 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
+  '/configuracion': typeof PanelConfiguracionRoute
   '/dashboard': typeof PanelDashboardRoute
+  '/notificaciones': typeof PanelNotificacionesRoute
+  '/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
+  '/admin/abiertos': typeof PanelAdminAbiertosRoute
+  '/admin/cerrados': typeof PanelAdminCerradosRoute
+  '/owner/administradores': typeof PanelOwnerAdministradoresRoute
+  '/owner/tickets': typeof PanelOwnerTicketsRoute
+  '/owner/usuarios': typeof PanelOwnerUsuariosRoute
+  '/tickets/$id': typeof PanelTicketsIdRoute
+  '/tickets/nuevo': typeof PanelTicketsNuevoRoute
+  '/owner': typeof PanelOwnerIndexRoute
+  '/tickets': typeof PanelTicketsIndexRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
   '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
@@ -93,8 +190,20 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_panel': typeof PanelRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/_panel/configuracion': typeof PanelConfiguracionRoute
   '/_panel/dashboard': typeof PanelDashboardRoute
+  '/_panel/notificaciones': typeof PanelNotificacionesRoute
+  '/_panel/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
+  '/_panel/admin/abiertos': typeof PanelAdminAbiertosRoute
+  '/_panel/admin/cerrados': typeof PanelAdminCerradosRoute
+  '/_panel/owner/administradores': typeof PanelOwnerAdministradoresRoute
+  '/_panel/owner/tickets': typeof PanelOwnerTicketsRoute
+  '/_panel/owner/usuarios': typeof PanelOwnerUsuariosRoute
+  '/_panel/tickets/$id': typeof PanelTicketsIdRoute
+  '/_panel/tickets/nuevo': typeof PanelTicketsNuevoRoute
+  '/_panel/owner/': typeof PanelOwnerIndexRoute
+  '/_panel/tickets/': typeof PanelTicketsIndexRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
   '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
@@ -105,8 +214,20 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/configuracion'
     | '/dashboard'
+    | '/notificaciones'
+    | '/perfil'
     | '/auth/complete'
+    | '/admin/abiertos'
+    | '/admin/cerrados'
+    | '/owner/administradores'
+    | '/owner/tickets'
+    | '/owner/usuarios'
+    | '/tickets/$id'
+    | '/tickets/nuevo'
+    | '/owner/'
+    | '/tickets/'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
     | '/api/public/auth/roblox/callback'
@@ -115,8 +236,20 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/configuracion'
     | '/dashboard'
+    | '/notificaciones'
+    | '/perfil'
     | '/auth/complete'
+    | '/admin/abiertos'
+    | '/admin/cerrados'
+    | '/owner/administradores'
+    | '/owner/tickets'
+    | '/owner/usuarios'
+    | '/tickets/$id'
+    | '/tickets/nuevo'
+    | '/owner'
+    | '/tickets'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
     | '/api/public/auth/roblox/callback'
@@ -126,8 +259,20 @@ export interface FileRouteTypes {
     | '/'
     | '/_panel'
     | '/auth'
+    | '/_panel/configuracion'
     | '/_panel/dashboard'
+    | '/_panel/notificaciones'
+    | '/_panel/perfil'
     | '/auth/complete'
+    | '/_panel/admin/abiertos'
+    | '/_panel/admin/cerrados'
+    | '/_panel/owner/administradores'
+    | '/_panel/owner/tickets'
+    | '/_panel/owner/usuarios'
+    | '/_panel/tickets/$id'
+    | '/_panel/tickets/nuevo'
+    | '/_panel/owner/'
+    | '/_panel/tickets/'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
     | '/api/public/auth/roblox/callback'
@@ -167,11 +312,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_panel/configuracion': {
+      id: '/_panel/configuracion'
+      path: '/configuracion'
+      fullPath: '/configuracion'
+      preLoaderRoute: typeof PanelConfiguracionRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/_panel/dashboard': {
       id: '/_panel/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof PanelDashboardRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/_panel/notificaciones': {
+      id: '/_panel/notificaciones'
+      path: '/notificaciones'
+      fullPath: '/notificaciones'
+      preLoaderRoute: typeof PanelNotificacionesRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/_panel/perfil': {
+      id: '/_panel/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PanelPerfilRouteImport
       parentRoute: typeof PanelRoute
     }
     '/auth/complete': {
@@ -180,6 +346,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/complete'
       preLoaderRoute: typeof AuthCompleteRouteImport
       parentRoute: typeof AuthRoute
+    }
+    '/_panel/admin/abiertos': {
+      id: '/_panel/admin/abiertos'
+      path: '/admin/abiertos'
+      fullPath: '/admin/abiertos'
+      preLoaderRoute: typeof PanelAdminAbiertosRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/_panel/admin/cerrados': {
+      id: '/_panel/admin/cerrados'
+      path: '/admin/cerrados'
+      fullPath: '/admin/cerrados'
+      preLoaderRoute: typeof PanelAdminCerradosRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/_panel/owner/': {
+      id: '/_panel/owner/'
+      path: '/owner'
+      fullPath: '/owner/'
+      preLoaderRoute: typeof PanelOwnerIndexRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/_panel/owner/administradores': {
+      id: '/_panel/owner/administradores'
+      path: '/owner/administradores'
+      fullPath: '/owner/administradores'
+      preLoaderRoute: typeof PanelOwnerAdministradoresRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/_panel/owner/tickets': {
+      id: '/_panel/owner/tickets'
+      path: '/owner/tickets'
+      fullPath: '/owner/tickets'
+      preLoaderRoute: typeof PanelOwnerTicketsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/_panel/owner/usuarios': {
+      id: '/_panel/owner/usuarios'
+      path: '/owner/usuarios'
+      fullPath: '/owner/usuarios'
+      preLoaderRoute: typeof PanelOwnerUsuariosRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/_panel/tickets/': {
+      id: '/_panel/tickets/'
+      path: '/tickets'
+      fullPath: '/tickets/'
+      preLoaderRoute: typeof PanelTicketsIndexRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/_panel/tickets/$id': {
+      id: '/_panel/tickets/$id'
+      path: '/tickets/$id'
+      fullPath: '/tickets/$id'
+      preLoaderRoute: typeof PanelTicketsIdRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/_panel/tickets/nuevo': {
+      id: '/_panel/tickets/nuevo'
+      path: '/tickets/nuevo'
+      fullPath: '/tickets/nuevo'
+      preLoaderRoute: typeof PanelTicketsNuevoRouteImport
+      parentRoute: typeof PanelRoute
     }
     '/api/public/auth/discord/callback': {
       id: '/api/public/auth/discord/callback'
@@ -213,11 +442,35 @@ declare module '@tanstack/react-router' {
 }
 
 interface PanelRouteChildren {
+  PanelConfiguracionRoute: typeof PanelConfiguracionRoute
   PanelDashboardRoute: typeof PanelDashboardRoute
+  PanelNotificacionesRoute: typeof PanelNotificacionesRoute
+  PanelPerfilRoute: typeof PanelPerfilRoute
+  PanelAdminAbiertosRoute: typeof PanelAdminAbiertosRoute
+  PanelAdminCerradosRoute: typeof PanelAdminCerradosRoute
+  PanelOwnerAdministradoresRoute: typeof PanelOwnerAdministradoresRoute
+  PanelOwnerTicketsRoute: typeof PanelOwnerTicketsRoute
+  PanelOwnerUsuariosRoute: typeof PanelOwnerUsuariosRoute
+  PanelTicketsIdRoute: typeof PanelTicketsIdRoute
+  PanelTicketsNuevoRoute: typeof PanelTicketsNuevoRoute
+  PanelOwnerIndexRoute: typeof PanelOwnerIndexRoute
+  PanelTicketsIndexRoute: typeof PanelTicketsIndexRoute
 }
 
 const PanelRouteChildren: PanelRouteChildren = {
+  PanelConfiguracionRoute: PanelConfiguracionRoute,
   PanelDashboardRoute: PanelDashboardRoute,
+  PanelNotificacionesRoute: PanelNotificacionesRoute,
+  PanelPerfilRoute: PanelPerfilRoute,
+  PanelAdminAbiertosRoute: PanelAdminAbiertosRoute,
+  PanelAdminCerradosRoute: PanelAdminCerradosRoute,
+  PanelOwnerAdministradoresRoute: PanelOwnerAdministradoresRoute,
+  PanelOwnerTicketsRoute: PanelOwnerTicketsRoute,
+  PanelOwnerUsuariosRoute: PanelOwnerUsuariosRoute,
+  PanelTicketsIdRoute: PanelTicketsIdRoute,
+  PanelTicketsNuevoRoute: PanelTicketsNuevoRoute,
+  PanelOwnerIndexRoute: PanelOwnerIndexRoute,
+  PanelTicketsIndexRoute: PanelTicketsIndexRoute,
 }
 
 const PanelRouteWithChildren = PanelRoute._addFileChildren(PanelRouteChildren)
