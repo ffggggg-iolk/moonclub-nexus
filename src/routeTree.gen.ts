@@ -21,6 +21,7 @@ import { Route as PanelAdminAbiertosRouteImport } from './routes/_panel.admin.ab
 import { Route as PanelAdminCerradosRouteImport } from './routes/_panel.admin.cerrados'
 import { Route as PanelOwnerIndexRouteImport } from './routes/_panel.owner.index'
 import { Route as PanelOwnerAdministradoresRouteImport } from './routes/_panel.owner.administradores'
+import { Route as PanelOwnerTicketsRouteImport } from './routes/_panel.owner.tickets'
 import { Route as PanelOwnerUsuariosRouteImport } from './routes/_panel.owner.usuarios'
 import { Route as PanelTicketsIndexRouteImport } from './routes/_panel.tickets.index'
 import { Route as PanelTicketsIdRouteImport } from './routes/_panel.tickets.$id'
@@ -90,6 +91,11 @@ const PanelOwnerAdministradoresRoute =
     path: '/owner/administradores',
     getParentRoute: () => PanelRoute,
   } as any)
+const PanelOwnerTicketsRoute = PanelOwnerTicketsRouteImport.update({
+  id: '/owner/tickets',
+  path: '/owner/tickets',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelOwnerUsuariosRoute = PanelOwnerUsuariosRouteImport.update({
   id: '/owner/usuarios',
   path: '/owner/usuarios',
@@ -146,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/admin/abiertos': typeof PanelAdminAbiertosRoute
   '/admin/cerrados': typeof PanelAdminCerradosRoute
   '/owner/administradores': typeof PanelOwnerAdministradoresRoute
+  '/owner/tickets': typeof PanelOwnerTicketsRoute
   '/owner/usuarios': typeof PanelOwnerUsuariosRoute
   '/tickets/$id': typeof PanelTicketsIdRoute
   '/tickets/nuevo': typeof PanelTicketsNuevoRoute
@@ -167,6 +174,7 @@ export interface FileRoutesByTo {
   '/admin/abiertos': typeof PanelAdminAbiertosRoute
   '/admin/cerrados': typeof PanelAdminCerradosRoute
   '/owner/administradores': typeof PanelOwnerAdministradoresRoute
+  '/owner/tickets': typeof PanelOwnerTicketsRoute
   '/owner/usuarios': typeof PanelOwnerUsuariosRoute
   '/tickets/$id': typeof PanelTicketsIdRoute
   '/tickets/nuevo': typeof PanelTicketsNuevoRoute
@@ -190,6 +198,7 @@ export interface FileRoutesById {
   '/_panel/admin/abiertos': typeof PanelAdminAbiertosRoute
   '/_panel/admin/cerrados': typeof PanelAdminCerradosRoute
   '/_panel/owner/administradores': typeof PanelOwnerAdministradoresRoute
+  '/_panel/owner/tickets': typeof PanelOwnerTicketsRoute
   '/_panel/owner/usuarios': typeof PanelOwnerUsuariosRoute
   '/_panel/tickets/$id': typeof PanelTicketsIdRoute
   '/_panel/tickets/nuevo': typeof PanelTicketsNuevoRoute
@@ -213,6 +222,7 @@ export interface FileRouteTypes {
     | '/admin/abiertos'
     | '/admin/cerrados'
     | '/owner/administradores'
+    | '/owner/tickets'
     | '/owner/usuarios'
     | '/tickets/$id'
     | '/tickets/nuevo'
@@ -234,6 +244,7 @@ export interface FileRouteTypes {
     | '/admin/abiertos'
     | '/admin/cerrados'
     | '/owner/administradores'
+    | '/owner/tickets'
     | '/owner/usuarios'
     | '/tickets/$id'
     | '/tickets/nuevo'
@@ -256,6 +267,7 @@ export interface FileRouteTypes {
     | '/_panel/admin/abiertos'
     | '/_panel/admin/cerrados'
     | '/_panel/owner/administradores'
+    | '/_panel/owner/tickets'
     | '/_panel/owner/usuarios'
     | '/_panel/tickets/$id'
     | '/_panel/tickets/nuevo'
@@ -363,6 +375,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelOwnerAdministradoresRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/_panel/owner/tickets': {
+      id: '/_panel/owner/tickets'
+      path: '/owner/tickets'
+      fullPath: '/owner/tickets'
+      preLoaderRoute: typeof PanelOwnerTicketsRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/_panel/owner/usuarios': {
       id: '/_panel/owner/usuarios'
       path: '/owner/usuarios'
@@ -430,6 +449,7 @@ interface PanelRouteChildren {
   PanelAdminAbiertosRoute: typeof PanelAdminAbiertosRoute
   PanelAdminCerradosRoute: typeof PanelAdminCerradosRoute
   PanelOwnerAdministradoresRoute: typeof PanelOwnerAdministradoresRoute
+  PanelOwnerTicketsRoute: typeof PanelOwnerTicketsRoute
   PanelOwnerUsuariosRoute: typeof PanelOwnerUsuariosRoute
   PanelTicketsIdRoute: typeof PanelTicketsIdRoute
   PanelTicketsNuevoRoute: typeof PanelTicketsNuevoRoute
@@ -445,6 +465,7 @@ const PanelRouteChildren: PanelRouteChildren = {
   PanelAdminAbiertosRoute: PanelAdminAbiertosRoute,
   PanelAdminCerradosRoute: PanelAdminCerradosRoute,
   PanelOwnerAdministradoresRoute: PanelOwnerAdministradoresRoute,
+  PanelOwnerTicketsRoute: PanelOwnerTicketsRoute,
   PanelOwnerUsuariosRoute: PanelOwnerUsuariosRoute,
   PanelTicketsIdRoute: PanelTicketsIdRoute,
   PanelTicketsNuevoRoute: PanelTicketsNuevoRoute,
