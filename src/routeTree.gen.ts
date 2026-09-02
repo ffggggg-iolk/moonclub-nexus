@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as PanelDashboardRouteImport } from './routes/_panel.dashboard'
 import { Route as PanelPerfilRouteImport } from './routes/_panel.perfil'
 import { Route as AuthCompleteRouteImport } from './routes/auth.complete'
+import { Route as PanelTicketsIndexRouteImport } from './routes/_panel.tickets.index'
 import { Route as ApiPublicAuthDiscordCallbackRouteImport } from './routes/api/public/auth/discord.callback'
 import { Route as ApiPublicAuthDiscordStartRouteImport } from './routes/api/public/auth/discord.start'
 import { Route as ApiPublicAuthRobloxCallbackRouteImport } from './routes/api/public/auth/roblox.callback'
@@ -49,6 +50,11 @@ const AuthCompleteRoute = AuthCompleteRouteImport.update({
   path: '/complete',
   getParentRoute: () => AuthRoute,
 } as any)
+const PanelTicketsIndexRoute = PanelTicketsIndexRouteImport.update({
+  id: '/tickets/',
+  path: '/tickets/',
+  getParentRoute: () => PanelRoute,
+} as any)
 const ApiPublicAuthDiscordCallbackRoute =
   ApiPublicAuthDiscordCallbackRouteImport.update({
     id: '/api/public/auth/discord/callback',
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof PanelDashboardRoute
   '/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
+  '/tickets/': typeof PanelTicketsIndexRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
   '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof PanelDashboardRoute
   '/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
+  '/tickets': typeof PanelTicketsIndexRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
   '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/_panel/dashboard': typeof PanelDashboardRoute
   '/_panel/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
+  '/_panel/tickets/': typeof PanelTicketsIndexRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
   '/api/public/auth/discord/start': typeof ApiPublicAuthDiscordStartRoute
   '/api/public/auth/roblox/callback': typeof ApiPublicAuthRobloxCallbackRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/perfil'
     | '/auth/complete'
+    | '/tickets/'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
     | '/api/public/auth/roblox/callback'
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/perfil'
     | '/auth/complete'
+    | '/tickets'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
     | '/api/public/auth/roblox/callback'
@@ -140,6 +151,7 @@ export interface FileRouteTypes {
     | '/_panel/dashboard'
     | '/_panel/perfil'
     | '/auth/complete'
+    | '/_panel/tickets/'
     | '/api/public/auth/discord/callback'
     | '/api/public/auth/discord/start'
     | '/api/public/auth/roblox/callback'
@@ -200,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCompleteRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_panel/tickets/': {
+      id: '/_panel/tickets/'
+      path: '/tickets'
+      fullPath: '/tickets/'
+      preLoaderRoute: typeof PanelTicketsIndexRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/api/public/auth/discord/callback': {
       id: '/api/public/auth/discord/callback'
       path: '/api/public/auth/discord/callback'
@@ -234,11 +253,13 @@ declare module '@tanstack/react-router' {
 interface PanelRouteChildren {
   PanelDashboardRoute: typeof PanelDashboardRoute
   PanelPerfilRoute: typeof PanelPerfilRoute
+  PanelTicketsIndexRoute: typeof PanelTicketsIndexRoute
 }
 
 const PanelRouteChildren: PanelRouteChildren = {
   PanelDashboardRoute: PanelDashboardRoute,
   PanelPerfilRoute: PanelPerfilRoute,
+  PanelTicketsIndexRoute: PanelTicketsIndexRoute,
 }
 
 const PanelRouteWithChildren = PanelRoute._addFileChildren(PanelRouteChildren)
