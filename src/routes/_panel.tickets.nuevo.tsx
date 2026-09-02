@@ -32,7 +32,7 @@ function NuevoTicket() {
   const { session, profile } = useMe();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [category, setCategory] = useState(CATEGORIES[0]);
+  const [category, setCategory] = useState<string>(CATEGORIES[0] ?? "Soporte");
   const [reason, setReason] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [busy, setBusy] = useState(false);

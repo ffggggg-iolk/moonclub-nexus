@@ -141,7 +141,10 @@ function TicketDetail() {
         close_reason: reason || "Sin motivo",
       })
       .eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Ticket cerrado");
     queryClient.invalidateQueries({ queryKey: ["ticket", id] });
   };
@@ -155,7 +158,10 @@ function TicketDetail() {
         reopened_by: session?.user.id ?? null,
       })
       .eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Ticket reabierto");
     queryClient.invalidateQueries({ queryKey: ["ticket", id] });
   };
