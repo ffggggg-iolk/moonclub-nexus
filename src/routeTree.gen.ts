@@ -16,6 +16,7 @@ import { Route as PanelDashboardRouteImport } from './routes/_panel.dashboard'
 import { Route as PanelPerfilRouteImport } from './routes/_panel.perfil'
 import { Route as AuthCompleteRouteImport } from './routes/auth.complete'
 import { Route as PanelTicketsIndexRouteImport } from './routes/_panel.tickets.index'
+import { Route as PanelTicketsIdRouteImport } from './routes/_panel.tickets.$id'
 import { Route as PanelTicketsNuevoRouteImport } from './routes/_panel.tickets.nuevo'
 import { Route as ApiPublicAuthDiscordCallbackRouteImport } from './routes/api/public/auth/discord.callback'
 import { Route as ApiPublicAuthDiscordStartRouteImport } from './routes/api/public/auth/discord.start'
@@ -56,6 +57,11 @@ const PanelTicketsIndexRoute = PanelTicketsIndexRouteImport.update({
   path: '/tickets/',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelTicketsIdRoute = PanelTicketsIdRouteImport.update({
+  id: '/tickets/$id',
+  path: '/tickets/$id',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelTicketsNuevoRoute = PanelTicketsNuevoRouteImport.update({
   id: '/tickets/nuevo',
   path: '/tickets/nuevo',
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof PanelDashboardRoute
   '/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
+  '/tickets/$id': typeof PanelTicketsIdRoute
   '/tickets/nuevo': typeof PanelTicketsNuevoRoute
   '/tickets/': typeof PanelTicketsIndexRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof PanelDashboardRoute
   '/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
+  '/tickets/$id': typeof PanelTicketsIdRoute
   '/tickets/nuevo': typeof PanelTicketsNuevoRoute
   '/tickets': typeof PanelTicketsIndexRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/_panel/dashboard': typeof PanelDashboardRoute
   '/_panel/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
+  '/_panel/tickets/$id': typeof PanelTicketsIdRoute
   '/_panel/tickets/nuevo': typeof PanelTicketsNuevoRoute
   '/_panel/tickets/': typeof PanelTicketsIndexRoute
   '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/perfil'
     | '/auth/complete'
+    | '/tickets/$id'
     | '/tickets/nuevo'
     | '/tickets/'
     | '/api/public/auth/discord/callback'
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/perfil'
     | '/auth/complete'
+    | '/tickets/$id'
     | '/tickets/nuevo'
     | '/tickets'
     | '/api/public/auth/discord/callback'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/_panel/dashboard'
     | '/_panel/perfil'
     | '/auth/complete'
+    | '/_panel/tickets/$id'
     | '/_panel/tickets/nuevo'
     | '/_panel/tickets/'
     | '/api/public/auth/discord/callback'
@@ -231,6 +243,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelTicketsIndexRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/_panel/tickets/$id': {
+      id: '/_panel/tickets/$id'
+      path: '/tickets/$id'
+      fullPath: '/tickets/$id'
+      preLoaderRoute: typeof PanelTicketsIdRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/_panel/tickets/nuevo': {
       id: '/_panel/tickets/nuevo'
       path: '/tickets/nuevo'
@@ -272,6 +291,7 @@ declare module '@tanstack/react-router' {
 interface PanelRouteChildren {
   PanelDashboardRoute: typeof PanelDashboardRoute
   PanelPerfilRoute: typeof PanelPerfilRoute
+  PanelTicketsIdRoute: typeof PanelTicketsIdRoute
   PanelTicketsNuevoRoute: typeof PanelTicketsNuevoRoute
   PanelTicketsIndexRoute: typeof PanelTicketsIndexRoute
 }
@@ -279,6 +299,7 @@ interface PanelRouteChildren {
 const PanelRouteChildren: PanelRouteChildren = {
   PanelDashboardRoute: PanelDashboardRoute,
   PanelPerfilRoute: PanelPerfilRoute,
+  PanelTicketsIdRoute: PanelTicketsIdRoute,
   PanelTicketsNuevoRoute: PanelTicketsNuevoRoute,
   PanelTicketsIndexRoute: PanelTicketsIndexRoute,
 }
