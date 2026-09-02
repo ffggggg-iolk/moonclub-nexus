@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PanelRouteImport } from './routes/_panel'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PanelConfiguracionRouteImport } from './routes/_panel.configuracion'
 import { Route as PanelDashboardRouteImport } from './routes/_panel.dashboard'
 import { Route as PanelNotificacionesRouteImport } from './routes/_panel.notificaciones'
 import { Route as PanelPerfilRouteImport } from './routes/_panel.perfil'
@@ -37,6 +38,11 @@ const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
+} as any)
+const PanelConfiguracionRoute = PanelConfiguracionRouteImport.update({
+  id: '/configuracion',
+  path: '/configuracion',
+  getParentRoute: () => PanelRoute,
 } as any)
 const PanelDashboardRoute = PanelDashboardRouteImport.update({
   id: '/dashboard',
@@ -101,6 +107,7 @@ const ApiPublicAuthRobloxStartRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
+  '/configuracion': typeof PanelConfiguracionRoute
   '/dashboard': typeof PanelDashboardRoute
   '/notificaciones': typeof PanelNotificacionesRoute
   '/perfil': typeof PanelPerfilRoute
@@ -116,6 +123,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
+  '/configuracion': typeof PanelConfiguracionRoute
   '/dashboard': typeof PanelDashboardRoute
   '/notificaciones': typeof PanelNotificacionesRoute
   '/perfil': typeof PanelPerfilRoute
@@ -133,6 +141,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_panel': typeof PanelRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/_panel/configuracion': typeof PanelConfiguracionRoute
   '/_panel/dashboard': typeof PanelDashboardRoute
   '/_panel/notificaciones': typeof PanelNotificacionesRoute
   '/_panel/perfil': typeof PanelPerfilRoute
@@ -150,6 +159,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/configuracion'
     | '/dashboard'
     | '/notificaciones'
     | '/perfil'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/configuracion'
     | '/dashboard'
     | '/notificaciones'
     | '/perfil'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_panel'
     | '/auth'
+    | '/_panel/configuracion'
     | '/_panel/dashboard'
     | '/_panel/notificaciones'
     | '/_panel/perfil'
@@ -226,6 +238,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_panel/configuracion': {
+      id: '/_panel/configuracion'
+      path: '/configuracion'
+      fullPath: '/configuracion'
+      preLoaderRoute: typeof PanelConfiguracionRouteImport
+      parentRoute: typeof PanelRoute
     }
     '/_panel/dashboard': {
       id: '/_panel/dashboard'
@@ -308,6 +327,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface PanelRouteChildren {
+  PanelConfiguracionRoute: typeof PanelConfiguracionRoute
   PanelDashboardRoute: typeof PanelDashboardRoute
   PanelNotificacionesRoute: typeof PanelNotificacionesRoute
   PanelPerfilRoute: typeof PanelPerfilRoute
@@ -317,6 +337,7 @@ interface PanelRouteChildren {
 }
 
 const PanelRouteChildren: PanelRouteChildren = {
+  PanelConfiguracionRoute: PanelConfiguracionRoute,
   PanelDashboardRoute: PanelDashboardRoute,
   PanelNotificacionesRoute: PanelNotificacionesRoute,
   PanelPerfilRoute: PanelPerfilRoute,
