@@ -18,6 +18,7 @@ import { Route as PanelNotificacionesRouteImport } from './routes/_panel.notific
 import { Route as PanelPerfilRouteImport } from './routes/_panel.perfil'
 import { Route as AuthCompleteRouteImport } from './routes/auth.complete'
 import { Route as PanelAdminAbiertosRouteImport } from './routes/_panel.admin.abiertos'
+import { Route as PanelAdminCerradosRouteImport } from './routes/_panel.admin.cerrados'
 import { Route as PanelTicketsIndexRouteImport } from './routes/_panel.tickets.index'
 import { Route as PanelTicketsIdRouteImport } from './routes/_panel.tickets.$id'
 import { Route as PanelTicketsNuevoRouteImport } from './routes/_panel.tickets.nuevo'
@@ -70,6 +71,11 @@ const PanelAdminAbiertosRoute = PanelAdminAbiertosRouteImport.update({
   path: '/admin/abiertos',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelAdminCerradosRoute = PanelAdminCerradosRouteImport.update({
+  id: '/admin/cerrados',
+  path: '/admin/cerrados',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelTicketsIndexRoute = PanelTicketsIndexRouteImport.update({
   id: '/tickets/',
   path: '/tickets/',
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
   '/admin/abiertos': typeof PanelAdminAbiertosRoute
+  '/admin/cerrados': typeof PanelAdminCerradosRoute
   '/tickets/$id': typeof PanelTicketsIdRoute
   '/tickets/nuevo': typeof PanelTicketsNuevoRoute
   '/tickets/': typeof PanelTicketsIndexRoute
@@ -136,6 +143,7 @@ export interface FileRoutesByTo {
   '/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
   '/admin/abiertos': typeof PanelAdminAbiertosRoute
+  '/admin/cerrados': typeof PanelAdminCerradosRoute
   '/tickets/$id': typeof PanelTicketsIdRoute
   '/tickets/nuevo': typeof PanelTicketsNuevoRoute
   '/tickets': typeof PanelTicketsIndexRoute
@@ -155,6 +163,7 @@ export interface FileRoutesById {
   '/_panel/perfil': typeof PanelPerfilRoute
   '/auth/complete': typeof AuthCompleteRoute
   '/_panel/admin/abiertos': typeof PanelAdminAbiertosRoute
+  '/_panel/admin/cerrados': typeof PanelAdminCerradosRoute
   '/_panel/tickets/$id': typeof PanelTicketsIdRoute
   '/_panel/tickets/nuevo': typeof PanelTicketsNuevoRoute
   '/_panel/tickets/': typeof PanelTicketsIndexRoute
@@ -174,6 +183,7 @@ export interface FileRouteTypes {
     | '/perfil'
     | '/auth/complete'
     | '/admin/abiertos'
+    | '/admin/cerrados'
     | '/tickets/$id'
     | '/tickets/nuevo'
     | '/tickets/'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/perfil'
     | '/auth/complete'
     | '/admin/abiertos'
+    | '/admin/cerrados'
     | '/tickets/$id'
     | '/tickets/nuevo'
     | '/tickets'
@@ -209,6 +220,7 @@ export interface FileRouteTypes {
     | '/_panel/perfil'
     | '/auth/complete'
     | '/_panel/admin/abiertos'
+    | '/_panel/admin/cerrados'
     | '/_panel/tickets/$id'
     | '/_panel/tickets/nuevo'
     | '/_panel/tickets/'
@@ -293,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelAdminAbiertosRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/_panel/admin/cerrados': {
+      id: '/_panel/admin/cerrados'
+      path: '/admin/cerrados'
+      fullPath: '/admin/cerrados'
+      preLoaderRoute: typeof PanelAdminCerradosRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/_panel/tickets/': {
       id: '/_panel/tickets/'
       path: '/tickets'
@@ -351,6 +370,7 @@ interface PanelRouteChildren {
   PanelNotificacionesRoute: typeof PanelNotificacionesRoute
   PanelPerfilRoute: typeof PanelPerfilRoute
   PanelAdminAbiertosRoute: typeof PanelAdminAbiertosRoute
+  PanelAdminCerradosRoute: typeof PanelAdminCerradosRoute
   PanelTicketsIdRoute: typeof PanelTicketsIdRoute
   PanelTicketsNuevoRoute: typeof PanelTicketsNuevoRoute
   PanelTicketsIndexRoute: typeof PanelTicketsIndexRoute
@@ -362,6 +382,7 @@ const PanelRouteChildren: PanelRouteChildren = {
   PanelNotificacionesRoute: PanelNotificacionesRoute,
   PanelPerfilRoute: PanelPerfilRoute,
   PanelAdminAbiertosRoute: PanelAdminAbiertosRoute,
+  PanelAdminCerradosRoute: PanelAdminCerradosRoute,
   PanelTicketsIdRoute: PanelTicketsIdRoute,
   PanelTicketsNuevoRoute: PanelTicketsNuevoRoute,
   PanelTicketsIndexRoute: PanelTicketsIndexRoute,
