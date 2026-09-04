@@ -16,7 +16,7 @@ import { Route as PanelConfiguracionRouteImport } from './routes/_panel.configur
 import { Route as PanelDashboardRouteImport } from './routes/_panel.dashboard'
 import { Route as PanelNotificacionesRouteImport } from './routes/_panel.notificaciones'
 import { Route as PanelPerfilRouteImport } from './routes/_panel.perfil'
-import { Route as AuthCompleteRouteImport } from './routes/auth.complete'
+import { Route as AuthCompleteRouteImport } from './routes/auth_.complete'
 import { Route as PanelAdminAbiertosRouteImport } from './routes/_panel.admin.abiertos'
 import { Route as PanelAdminCerradosRouteImport } from './routes/_panel.admin.cerrados'
 import { Route as PanelOwnerIndexRouteImport } from './routes/_panel.owner.index'
@@ -66,9 +66,9 @@ const PanelPerfilRoute = PanelPerfilRouteImport.update({
   getParentRoute: () => PanelRoute,
 } as any)
 const AuthCompleteRoute = AuthCompleteRouteImport.update({
-  id: '/complete',
-  path: '/complete',
-  getParentRoute: () => AuthRoute,
+  id: '/auth_/complete',
+  path: '/auth/complete',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PanelAdminAbiertosRoute = PanelAdminAbiertosRouteImport.update({
   id: '/admin/abiertos',
@@ -143,7 +143,7 @@ const ApiPublicAuthRobloxStartRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRouteWithChildren
+  '/auth': typeof AuthRoute
   '/configuracion': typeof PanelConfiguracionRoute
   '/dashboard': typeof PanelDashboardRoute
   '/notificaciones': typeof PanelNotificacionesRoute
@@ -165,7 +165,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRouteWithChildren
+  '/auth': typeof AuthRoute
   '/configuracion': typeof PanelConfiguracionRoute
   '/dashboard': typeof PanelDashboardRoute
   '/notificaciones': typeof PanelNotificacionesRoute
@@ -189,12 +189,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_panel': typeof PanelRouteWithChildren
-  '/auth': typeof AuthRouteWithChildren
+  '/auth': typeof AuthRoute
   '/_panel/configuracion': typeof PanelConfiguracionRoute
   '/_panel/dashboard': typeof PanelDashboardRoute
   '/_panel/notificaciones': typeof PanelNotificacionesRoute
   '/_panel/perfil': typeof PanelPerfilRoute
-  '/auth/complete': typeof AuthCompleteRoute
+  '/auth_/complete': typeof AuthCompleteRoute
   '/_panel/admin/abiertos': typeof PanelAdminAbiertosRoute
   '/_panel/admin/cerrados': typeof PanelAdminCerradosRoute
   '/_panel/owner/administradores': typeof PanelOwnerAdministradoresRoute
@@ -263,7 +263,7 @@ export interface FileRouteTypes {
     | '/_panel/dashboard'
     | '/_panel/notificaciones'
     | '/_panel/perfil'
-    | '/auth/complete'
+    | '/auth_/complete'
     | '/_panel/admin/abiertos'
     | '/_panel/admin/cerrados'
     | '/_panel/owner/administradores'
@@ -282,7 +282,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PanelRoute: typeof PanelRouteWithChildren
-  AuthRoute: typeof AuthRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  AuthCompleteRoute: typeof AuthCompleteRoute
   ApiPublicAuthDiscordCallbackRoute: typeof ApiPublicAuthDiscordCallbackRoute
   ApiPublicAuthDiscordStartRoute: typeof ApiPublicAuthDiscordStartRoute
   ApiPublicAuthRobloxCallbackRoute: typeof ApiPublicAuthRobloxCallbackRoute
@@ -340,12 +341,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelPerfilRouteImport
       parentRoute: typeof PanelRoute
     }
-    '/auth/complete': {
-      id: '/auth/complete'
-      path: '/complete'
+    '/auth_/complete': {
+      id: '/auth_/complete'
+      path: '/auth/complete'
       fullPath: '/auth/complete'
       preLoaderRoute: typeof AuthCompleteRouteImport
-      parentRoute: typeof AuthRoute
+      parentRoute: typeof rootRouteImport
     }
     '/_panel/admin/abiertos': {
       id: '/_panel/admin/abiertos'
@@ -475,20 +476,11 @@ const PanelRouteChildren: PanelRouteChildren = {
 
 const PanelRouteWithChildren = PanelRoute._addFileChildren(PanelRouteChildren)
 
-interface AuthRouteChildren {
-  AuthCompleteRoute: typeof AuthCompleteRoute
-}
-
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthCompleteRoute: AuthCompleteRoute,
-}
-
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PanelRoute: PanelRouteWithChildren,
-  AuthRoute: AuthRouteWithChildren,
+  AuthRoute: AuthRoute,
+  AuthCompleteRoute: AuthCompleteRoute,
   ApiPublicAuthDiscordCallbackRoute: ApiPublicAuthDiscordCallbackRoute,
   ApiPublicAuthDiscordStartRoute: ApiPublicAuthDiscordStartRoute,
   ApiPublicAuthRobloxCallbackRoute: ApiPublicAuthRobloxCallbackRoute,

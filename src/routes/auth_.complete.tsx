@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const searchSchema = z.object({ token_hash: z.string().optional() });
 
-export const Route = createFileRoute("/auth/complete")({
+export const Route = createFileRoute("/auth_/complete")({
   validateSearch: searchSchema,
   ssr: false,
   head: () => ({
