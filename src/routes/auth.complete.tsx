@@ -36,14 +36,23 @@ function AuthComplete() {
         navigate({ to: "/auth", search: { error: "session_failed" }, replace: true });
         return;
       }
-      const { error } = await supabase.auth.verifyOtp({
-        type: "magiclink",
-        token_hash: tokenHash,
-      });
-      if (error) {
+      // GoTrue may issue the admin link as magiclink, email or recovery
+      // depending on the user's state; try each until one verifies.
+      const types = ["magiclink", "email", "recovery"] as const;
+      let ok = false;
+      for (const type of types) {
+        const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash });
+        if (!error) {
+          ok = true;
+          break;
+        }
+        console.warn("verifyOtp failed", type, error.message);
+      }
+      if (!ok) {
         navigate({ to: "/auth", search: { error: "session_failed" }, replace: true });
         return;
       }
+
       navigate({ to: "/dashboard", replace: true });
     })();
   }, [tokenHash, navigate]);
