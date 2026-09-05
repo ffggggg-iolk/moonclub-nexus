@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
+import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
@@ -24,8 +24,7 @@ export const Route = createFileRoute("/auth_/complete")({
 });
 
 function AuthComplete() {
-  const { token_hash: tokenHash } = useSearch({ from: "/auth/complete" });
-  const navigate = useNavigate();
+  const { token_hash: tokenHash } = useSearch({ from: "/auth_/complete" });
   const ran = useRef(false);
   const [failed, setFailed] = useState(false);
 
@@ -56,7 +55,7 @@ function AuthComplete() {
         setFailed(true);
       }
     })();
-  }, [tokenHash, navigate]);
+  }, [tokenHash]);
 
   if (failed) {
     return (
